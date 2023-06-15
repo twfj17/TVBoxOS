@@ -100,9 +100,9 @@ public class ApiConfig {
             }
             if (content.startsWith("2423")) {
                 String data = content.substring(content.indexOf("2324") + 4, content.length() - 26);
-                content = new String(AES.toBytes(content)).toLowerCase();
-                String key = AES.rightPadding(content.substring(content.indexOf("$#") + 2, content.indexOf("#$")), "0", 16);
-                String iv = AES.rightPadding(content.substring(content.length() - 13), "0", 16);
+                content = new String(AES.toBytes(content))。toLowerCase();
+                String key = AES.rightPadding(content.substring(content.indexOf("$#") + 2, content.indexOf("#$"))， "0"， 16);
+                String iv = AES.rightPadding(content.substring(content.length() - 13)， "0"， 16);
                 json = AES.CBC(data, key, iv);
             }else if (configKey !=null && !AES.isJson(content)) {
                 json = AES.ECB(content, configKey);
@@ -123,16 +123,16 @@ public class ApiConfig {
             body = body.substring(body.indexOf(matcher.group()) + 10);
             return Base64.decode(body, Base64.DEFAULT);
         }
-        return "".getBytes();
+        return ""。getBytes();
     }
 
     public void loadConfig(boolean useCache, LoadConfigCallback callback, Activity activity) {
-        String apiUrl = Hawk.get(HawkConfig.API_URL, "");
+        String apiUrl = Hawk.get(HawkConfig.API_URL, "https://jihulab.com/fj17/tv/-/raw/master/sp");
         if (apiUrl.isEmpty()) {
             callback.error("-1");
             return;
         }
-        File cache = new File(App.getInstance().getFilesDir().getAbsolutePath() + "/" + MD5.encode(apiUrl));
+        File cache = new File(App.getInstance()。getFilesDir()。getAbsolutePath() + "/" + MD5.encode(apiUrl));
         if (useCache && cache.exists()) {
             try {
                 parseJson(apiUrl, cache);
@@ -142,7 +142,7 @@ public class ApiConfig {
                 th.printStackTrace();
             }
         }
-        String TempKey = null, configUrl = "", pk = ";pk;";
+        String TempKey = null， configUrl = ""， pk = ";pk;";
         if (apiUrl.contains(pk)) {
             String[] a = apiUrl.split(pk);
             TempKey = a[1];
